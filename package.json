@@ -1,0 +1,48 @@
+{
+  "name": "chatbotapp",
+  "version": "1.0.0",
+  "description": "A chatbot",
+  "main": "src/index.js",
+  "author": "sravanti kanchi",
+  "license": "ISC",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "runner": "nodemon ./src/runner.js"
+  },
+  "keywords": [],
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.20.2",
+    "celebrate": "^12.0.1",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "csv": "^5.3.2",
+    "dotenv-safe": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "express": "^4.18.2",
+    "express-winston": "^4.0.3",
+    "fs": "0.0.1-security",
+    "helmet": "^3.21.3",
+    "http-status": "^1.4.2",
+    "image-thumbnail": "1.0.15",
+    "json-rules-engine": "^6.1.2",
+    "jsonwebtoken": "^5.0.5",
+    "localtunnel": "^2.0.2",
+    "lodash": "^4.17.15",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.4",
+    "multer": "^1.4.5-lts.1",
+    "mustache": "^4.2.0",
+    "randomstring": "^1.1.5",
+    "redis": "^3.0.2",
+    "twilio": "^4.14.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "nodemon": "^2.0.2"
+  }
+}

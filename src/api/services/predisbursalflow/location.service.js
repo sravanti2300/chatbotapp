@@ -1,4 +1,5 @@
 const _ = require('lodash');
+/* eslint-disable no-unused-vars */
 const ruleEngineUtils = require('../../utils/ruleEngine.util');
 const redisUtil = require('../../utils/redis.util');
 const templateModel = require('../../models/templates.model');
@@ -7,17 +8,17 @@ const { logger } = require('../../../config/logger');
 
 // currently populating randomly
 const populateRequiredDynamicData = (customData, eventData, language) => {
-  let dynamicData = {};
-  if (_.includes(customData, 'time') || _.includes(customData, 'date')) {
-    dynamicData = {
-      time: '3:00 PM',
-      date: 'July 30',
-    };
-  }
-  if (_.isEmpty(dynamicData)) {
-    // eslint-disable-next-line no-param-reassign
-    eventData.templateName = `SlotNotReturned${language}`;
-  }
+  const dynamicData = {};
+  // if (_.includes(customData, 'time') || _.includes(customData, 'date')) {
+  //   dynamicData = {
+  //     time: '3:00 PM',
+  //     date: 'July 30',
+  //   };
+  // }
+  // if (_.isEmpty(dynamicData)) {
+  //   // eslint-disable-next-line no-param-reassign
+  //   eventData.templateName = `SlotNotReturned${language}`;
+  // }
   return dynamicData;
 };
 
@@ -34,6 +35,7 @@ const processMessage = async ({
   status,
   type,
   convlog,
+  data,
 }) => {
   const {
     Body: userInput, To: sender, Latitude, Longitude,
@@ -63,6 +65,7 @@ const processMessage = async ({
     type,
     status: statusUpdate ? newStatus : status,
     convlog: [...convlog, { type: 'user', message: userInput }, { type: 'bot', message: content }],
+    data: { ...data, location: { Latitude, Longitude } },
   }));
   await twilioService.send({ content, receiver, sender });
 };

@@ -28,6 +28,7 @@ const processMessage = async ({
   status,
   type,
   convlog,
+  data,
 }) => {
   const { Body: userInput, To: sender } = reqPaylod;
   const params = {
@@ -53,6 +54,7 @@ const processMessage = async ({
     type,
     status: statusUpdate ? newStatus : status,
     convlog: [...convlog, { type: 'user', message: userInput }, { type: 'bot', message: content }],
+    data,
   }));
   await twilioService.send({ content, receiver, sender });
 };

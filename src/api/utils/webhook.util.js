@@ -1,4 +1,3 @@
-const moment = require('moment');
 const _ = require('lodash');
 const redisUtils = require('./redis.util');
 const sessionModel = require('../models/session.model');
@@ -8,15 +7,13 @@ const fetchUserSessionData = async (phoneNumber) => {
   let cachedValue = await redisUtils.getFromCache(phoneNumber);
   cachedValue = !_.isEmpty(cachedValue) ? JSON.parse(cachedValue) : {};
   if (_.isEmpty(cachedValue)) {
-    const sessionData = await sessionModel.findOneAndUpdate({
-      usernumber: phoneNumber,
-      createdAt: { $gte: moment().subtract(1, 'hours') },
-    }, {
+    await sessionModel.updateMany({
       usernumber: phoneNumber,
     }, {
-      upsert: true,
-      new: true,
-      setDefaultsOnInsert: true,
+      status: 'completed',
+    });
+    const sessionData = await sessionModel.create({
+      usernumber: phoneNumber,
     });
     const sessionInfo = {
       sessionId: sessionData.id,
@@ -24,17 +21,18 @@ const fetchUserSessionData = async (phoneNumber) => {
       language: sessionData.language,
       type: sessionData.type,
       convlog: [],
+      data: {},
     };
-    await redisUtils.setToCache(phoneNumber, JSON.stringify(sessionInfo));
+    await redisUtils.setToCache(phoneNumber, JSON.stringify(sessionInfo), 'EX', 3600);
     return sessionInfo;
   }
   return cachedValue;
 };
 
-const processMessage = async (reqPaylod, file) => {
+const processMessage = async (reqPaylod) => {
   const { From: receiver } = reqPaylod;
   const {
-    sessionId, status, language, type, convlog,
+    sessionId, status, language, type, convlog, data,
   } = await fetchUserSessionData(receiver);
   await statusService[status].processMessage({
     reqPaylod,
@@ -44,7 +42,7 @@ const processMessage = async (reqPaylod, file) => {
     status,
     type,
     convlog,
-    file,
+    data,
   });
 };
 

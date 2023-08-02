@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 const _ = require('lodash');
 const ruleEngineUtils = require('../../utils/ruleEngine.util');
 const redisUtil = require('../../utils/redis.util');
@@ -6,17 +8,17 @@ const twilioService = require('../twilio.service');
 
 // currently populating randomly
 const populateRequiredDynamicData = (customData, eventData, language) => {
-  let dynamicData = {};
-  if (_.includes(customData, 'time') || _.includes(customData, 'date')) {
-    dynamicData = {
-      time: '3:00 PM',
-      date: 'July 30',
-    };
-  }
-  if (_.isEmpty(dynamicData)) {
-    // eslint-disable-next-line no-param-reassign
-    eventData.templateName = `SlotNotReturned${language}`;
-  }
+  const dynamicData = {};
+  // if (_.includes(customData, 'time') || _.includes(customData, 'date')) {
+  //   dynamicData = {
+  //     time: '3:00 PM',
+  //     date: 'July 30',
+  //   };
+  // }
+  // if (_.isEmpty(dynamicData)) {
+  //   // eslint-disable-next-line no-param-reassign
+  //   eventData.templateName = `SlotNotReturned${language}`;
+  // }
   return dynamicData;
 };
 
@@ -28,6 +30,7 @@ const processMessage = async ({
   status,
   type,
   convlog,
+  data,
 }) => {
   const { Body: userInput, To: sender } = reqPaylod;
   const params = {
@@ -60,6 +63,7 @@ const processMessage = async ({
     status,
     ...changedParams,
     convlog: [...convlog, { type: 'user', message: userInput }, { type: 'bot', message: content }],
+    data,
   }));
 
   await twilioService.send({ content, receiver, sender });

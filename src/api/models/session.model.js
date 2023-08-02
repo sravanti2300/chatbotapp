@@ -15,9 +15,11 @@ const sessionSchema = new mongoose.Schema({
   },
   convlog: {
     type: Object,
+    default: [],
   },
   userInfo: {
     type: Object,
+    default: {},
   },
   status: {
     type: String,

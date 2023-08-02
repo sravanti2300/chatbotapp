@@ -6,12 +6,13 @@
   "author": "sravanti kanchi",
   "license": "ISC",
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "runner": "nodemon ./src/runner.js"
+    "start": "node ./src/index.js & node ./src/scheduler.js",
+    "dev": "nodemon ./src/index.js & nodemon ./src/scheduler.js"
   },
   "keywords": [],
   "dependencies": {
+    "agenda": "^5.0.0",
+    "axios": "^1.4.0",
     "bluebird": "^3.7.2",
     "body-parser": "^1.20.2",
     "celebrate": "^12.0.1",

@@ -43,7 +43,7 @@ const processMessage = async ({
   const {
     templateName, statusUpdate, newStatus, language: updatedLanguage,
   } = eventData;
-  const templateData = await templateModel.findOne({ name: !_.isEmpty(eventData) ? templateName : `errorTemplate${language}` });
+  const templateData = await templateModel.findOne({ name: !_.isEmpty(eventData) ? templateName : 'errorTemplate' });
   let dynamicData = {};
   if (!_.isEmpty(templateData.customdata)) {
     dynamicData = populateRequiredDynamicData(templateData.customdata, eventData, language);

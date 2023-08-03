@@ -1,12 +1,15 @@
 const _ = require('lodash');
 const redisUtils = require('./redis.util');
 const sessionModel = require('../models/session.model');
-const statusService = require('../services/predisbstatusservice');
+const statusService = require('../services/statusservice');
+const configModel = require('../models/config.model');
+const Constants = require('./constants');
 
 const fetchUserSessionData = async (phoneNumber) => {
   let cachedValue = await redisUtils.getFromCache(phoneNumber);
   cachedValue = !_.isEmpty(cachedValue) ? JSON.parse(cachedValue) : {};
   if (_.isEmpty(cachedValue)) {
+    const flowSelection = await configModel.findOne({ key: Constants.config.flow }) || {};
     await sessionModel.updateMany({
       usernumber: phoneNumber,
     }, {
@@ -17,7 +20,7 @@ const fetchUserSessionData = async (phoneNumber) => {
     });
     const sessionInfo = {
       sessionId: sessionData.id,
-      status: 'languageStage',
+      status: flowSelection.value === 'pre' ? 'languageStage' : 'postdisbLanguageStage',
       language: sessionData.language,
       type: sessionData.type,
       convlog: [],

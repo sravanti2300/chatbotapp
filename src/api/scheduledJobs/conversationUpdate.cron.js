@@ -8,7 +8,7 @@ module.exports = {
   name: 'DailyConversationUpdateCron',
   frequency: '1 minute',
   fn: async () => {
-    const from = moment().subtract(5, 'hours').toISOString();
+    const from = moment().utc().subtract(24, 'hours').toISOString();
     // const to = moment().utc().subtract(1, 'minute').toISOString();
     const latestSessions = await sessionModel.find({
       updatedAt: { $gte: from },
@@ -23,8 +23,6 @@ module.exports = {
           status: 'created',
         }, {
           status: 'completed',
-          userInfo: cachedValue.data,
-          convlog: [...eachSession.convlog, ...cachedValue.convlog],
         });
       } else if (!_.isEmpty(cachedValue.convlog)) {
         await sessionModel.findOneAndUpdate({

@@ -14,7 +14,7 @@ Integrated WhatsApp using Twilio, and for rules configuration rule engine has be
 
 1. Create an account in Twilio, and get the auth key for Twilio
 2. Create an account in Chatgpt, and get the auth key for Chatgpt
-3. Configure all your auth keys and db URI in.env file
-4. Install Node and npm
+3. Configure all your auth keys and db URI in .env file
+4. Install Node and NPM
 5. in the repo to install all the required libs, **run npm i**
 6. finally, to run the service, use **npm run dev**

@@ -10,7 +10,7 @@ he can type the query which will be passed as a prompt to the chatbot.
 
 Integrated WhatsApp using Twilio, and for rules configuration rule engine has been used.
 
-## Steps to Setup the repo 📜
+## Steps to Setup the Repo 📜
 
 1. Create an account in Twilio, and get the auth key for Twilio
 2. Create an account in Chatgpt, and get the auth key for Chatgpt

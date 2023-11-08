@@ -1,5 +1,4 @@
-# chatbotapp
-This is a WhatsApp chatbot, which provides 
+
 
 
 <h1 align="center"> Whatsapp chatbotapp:wave:</h1>

@@ -1,7 +1,7 @@
 
 
 
-<h1 align="center"> Whatsapp chatbotapp:wave:</h1>
+<h1 align="center"> Whatsapp chatbotapp</h1>
 
 **This Chatbot** is a microservice implemented to provide customer support to users via WhatsApp chat. 
 It is implemented using Node.js,express.js, and MongoDB. It is a rules-based service where all the questions and the following options are pre-configured in the DB, if the user is looking for a query that isn't there in the configured questions
